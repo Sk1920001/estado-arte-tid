@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e8edf2">
+  <meta name="description" content="Presentación de propuesta de tesis sobre componentes de Fourier y trenes de spikes de células ganglionares de la retina.">
+  <title>Párrafo sintético · Presentación</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='9' fill='%23ffffff'/%3E%3Cpath d='M7 39h10V21h3v18h11V14h3v25h10V26h3v13h10' fill='none' stroke='%23245b89' stroke-width='3'/%3E%3C/svg%3E">
+  <style>
+    *{box-sizing:border-box}
+    html,body{min-height:100%;margin:0}
+    body{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);display:flex;align-items:center;justify-content:center;min-height:100dvh;padding:1.25rem 1.25rem .65rem}
+    button{font:inherit}
+    a{color:var(--mint);text-underline-offset:.16em}
+    a:hover{color:#b9fff4}
+    .shell{width:100%;display:flex;flex-direction:column;align-items:center;gap:.68rem}
+    .deck{position:relative;width:min(100%,calc((100dvh - 6.5rem)*16/9),1500px);aspect-ratio:16/9;overflow:hidden;background:var(--surface);border:1px solid #b9c8d5;isolation:isolate}
+    .slide{position:absolute;inset:0;padding:4.8% 6.2% 6%;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateX(2.2%);transition:opacity .42s ease,transform .42s ease,visibility .42s;overflow:hidden}
+    .slide.active{opacity:1;visibility:visible;transform:none;z-index:1}
+    .eyebrow{font-size:clamp(.78rem,1vw,1.05rem);font-weight:750;letter-spacing:.16em;text-transform:uppercase;color:var(--mint);margin:0 0 1rem}
+    .kicker{font-size:clamp(.84rem,1.05vw,1.08rem);color:var(--gold);font-weight:650;letter-spacing:.025em;margin:0 0 .6rem}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-size:clamp(2.5rem,5vw,5rem);line-height:1.03;letter-spacing:-.055em;max-width:12ch;margin-bottom:1.35rem}
+    h2{font-size:clamp(2rem,3.7vw,3.7rem);line-height:1.06;letter-spacing:-.045em;margin-bottom:.45rem;max-width:24ch}
+    h3{font-size:clamp(1.16rem,1.55vw,1.68rem);letter-spacing:-.025em;margin-bottom:.55rem}
+    .lede{font-size:clamp(1rem,1.55vw,1.48rem);line-height:1.4;color:#d9e9ec;max-width:44rem}
+    .muted{color:var(--muted)}
+    .highlight{color:var(--mint)}
+    .gold{color:var(--gold)}
+    .slide-main{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
+    .source{margin-top:auto;padding-top:.6rem;font-size:clamp(.73rem,.86vw,.94rem);color:var(--muted);line-height:1.4}
+    .source a{color:#b3f3e9}
+    .slide-label{position:absolute;bottom:3.3%;right:6.2%;font-size:clamp(.75rem,.9vw,1rem);color:var(--muted);font-variant-numeric:tabular-nums}
+    .rule{width:100%;height:1px;background:var(--line);margin:.7rem 0 1.5rem}
+    .cover{justify-content:space-between}
+    .cover-content{position:relative;z-index:1;max-width:75%;margin:auto 0}
+    .cover h1{max-width:13ch}
+    .cover-meta{color:var(--muted);font-size:clamp(1rem,1.45vw,1.42rem);line-height:1.65}
+    .two-col{display:grid;grid-template-columns:.9fr 1.1fr;gap:4.5%;align-items:center;flex:1;min-height:0}
+    .two-col.reverse{grid-template-columns:1.07fr .93fr}
+    .visual{width:100%;height:auto;max-height:100%;overflow:visible}
+    .context-copy{font-size:clamp(1.05rem,1.65vw,1.68rem);line-height:1.42;max-width:29rem}
+    .context-copy strong{color:var(--mint)}
+    .news{margin-top:1.8rem;max-width:31rem}
+    .scheme-note{font-size:clamp(.75rem,.86vw,.94rem);color:var(--muted);margin-top:.35rem}
+    .problem-question{font-size:clamp(1.45rem,2.6vw,2.6rem);line-height:1.16;letter-spacing:-.03em;max-width:29ch;margin:.45rem 0 1rem}
+    .distinction{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin:1rem 0 0;font-size:clamp(1rem,1.35vw,1.4rem);line-height:1.3}
+    .distinction div{border-top:1px solid var(--line);padding-top:.65rem}
+    .distinction strong{color:var(--mint);display:block;margin-bottom:.22rem}
+    .prior-art{display:grid;grid-template-columns:1fr 1fr;gap:5%;margin-top:2rem}
+    .prior-art article{border-top:2px solid var(--line);padding-top:1.05rem}
+    .prior-art .who{font-size:clamp(.9rem,1.2vw,1.18rem);font-weight:800;color:var(--mint);letter-spacing:.04em;margin-bottom:.8rem}
+    .prior-art p{font-size:clamp(1rem,1.55vw,1.48rem);line-height:1.38;max-width:30ch}
+    .gap{margin-top:1.5rem}
+    .gap p{font-size:clamp(1.15rem,1.8vw,1.78rem);line-height:1.25;max-width:51ch;margin:0}
+    .objective-general{font-size:clamp(1.22rem,1.9vw,1.92rem);line-height:1.35;max-width:47ch;margin:.6rem 0 1.3rem}
+    .objective-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
+    .objective-list li{border-top:2px solid var(--line);padding-top:.72rem;font-size:clamp(.95rem,1.31vw,1.35rem);line-height:1.35}
+    .objective-list .num{display:block;color:var(--gold);font-size:clamp(.84rem,1vw,1rem);font-weight:800;margin-bottom:.45rem}
+    .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin:1.7rem 0 1.45rem}
+    .method-step{border-top:2px solid var(--mint);padding-top:.85rem;min-height:9rem}
+    .method-step .num{font-size:clamp(.85rem,1vw,1.05rem);color:var(--gold);font-weight:800;letter-spacing:.09em}
+    .method-step p{font-size:clamp(1.05rem,1.48vw,1.47rem);line-height:1.33;margin:.5rem 0 0}
+    .impact{margin-top:auto}
+    .impact p{font-size:clamp(1.13rem,1.62vw,1.58rem);line-height:1.3;max-width:47ch;margin-bottom:0}
+    .toolbar{width:min(100%,calc((100dvh - 6.5rem)*16/9),1500px);display:flex;align-items:center;justify-content:space-between;gap:1rem;color:var(--muted)}
+    .toolbar-group{display:flex;align-items:center;gap:.45rem}
+    .control{background:#173047;border:1px solid #3a5e6e;color:var(--ink);min-width:2.55rem;min-height:2.55rem;padding:.35rem .75rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .18s,border-color .18s}
+    .control:hover:not(:disabled){background:#21465a;border-color:var(--mint)}
+    .control:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+    .control:disabled{opacity:.4;cursor:default}
+    .slide-count{font-variant-numeric:tabular-nums;font-size:.95rem;min-width:3.7rem;text-align:center}
+    .keyboard-hint{font-size:.87rem}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .active .reveal{animation:rise .65s ease both}
+    .active .reveal:nth-of-type(2){animation-delay:.12s}
+    .active .reveal:nth-of-type(3){animation-delay:.23s}
+    @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    @media(max-width:760px){
+      body{padding:0;background:var(--surface)}
+      .shell{height:100dvh;gap:0}
+      .deck{width:100%;height:calc(100dvh - 3.5rem);min-height:0;aspect-ratio:auto;border:0;box-shadow:none}
+      .slide{padding:1.65rem 1.35rem 2.8rem;overflow:auto}
+      .slide-label{right:1.35rem;bottom:1rem}
+      .cover-content{max-width:100%}
+      .two-col,.two-col.reverse{display:flex;flex-direction:column;align-items:stretch;gap:1rem}
+      .two-col .visual-wrap{max-height:30vh;min-height:170px;display:flex;align-items:center;justify-content:center}
+      .two-col .visual{max-height:30vh}
+      .context-copy{font-size:1.15rem}
+      .news{margin-top:1rem}
+      .prior-art{gap:1.2rem;margin-top:1rem}
+      .prior-art p{font-size:1rem}
+      .objective-list,.method-grid{gap:1rem}
+      .objective-list li,.method-step p{font-size:1rem}
+      .method-step{min-height:0}
+      .toolbar{height:3.5rem;padding:0 .6rem;background:#08131f;width:100%}
+      .keyboard-hint{display:none}
+    }
+    @media(max-width:520px){
+      .slide{padding:1.35rem 1rem 2.4rem}
+      h1{font-size:2.7rem}h2{font-size:2rem}
+      .source{font-size:.75rem}
+      .prior-art,.objective-list,.method-grid,.distinction{grid-template-columns:1fr;gap:.65rem}
+      .prior-art article{padding-top:.5rem}
+      .prior-art p{margin-bottom:.35rem}
+      .gap{margin-top:.6rem;padding:.65rem .85rem}
+      .gap p{font-size:1.1rem}
+      .objective-general{font-size:1.13rem;margin:.45rem 0 .65rem}
+      .objective-list li{padding-top:.42rem}
+      .objective-list .num{display:inline;margin-right:.45rem}
+      .method-grid{margin:.7rem 0}
+      .method-step{padding-top:.35rem}
+      .method-step p{margin:.2rem 0 .3rem}
+      .impact{margin-top:.4rem}
+      .impact p{font-size:1.1rem}
+      .slide-label{right:1rem}
+    }
+    @media(prefers-reduced-motion:reduce){.slide,.control{transition:none}.active .reveal{animation:none}}
+    @media print{body{display:block;padding:0;background:white}.shell{display:block}.deck{width:100%;height:auto;aspect-ratio:auto;overflow:visible;border:0;box-shadow:none}.deck::before,.deck::after,.toolbar{display:none}.slide{position:relative;width:100%;height:56.25vw;min-height:0;opacity:1!important;visibility:visible!important;transform:none!important;overflow:hidden;page-break-after:always;background:#0d1d2d;-webkit-print-color-adjust:exact;print-color-adjust:exact}.reveal{animation:none!important}}
+
+    /* Versión sobria inspirada en Beamer: lienzo blanco, encabezado y pie azul. */
+    :root{color-scheme:light;--bg:#e8edf2;--surface:#fff;--ink:#1d2d3d;--muted:#5c6b79;--line:#c6d2dd;--mint:#245b89;--gold:#9b571f}
+    body{background:#e8edf2;color:var(--ink)}
+    .deck{background:#fff;border:1px solid #b9c8d5;box-shadow:none}
+    .slide{background:#fff;padding:8.4% 6.2% 6.2%;transition:opacity .28s ease,transform .28s ease,visibility .28s}
+    .slide::before{content:"";position:absolute;left:0;right:0;top:0;height:7.7%;background:#244e75}
+    .slide::after{content:"";position:absolute;left:0;right:0;bottom:0;height:.85%;background:#244e75}
+    .eyebrow{position:absolute;top:2.45%;left:6.2%;color:#fff;letter-spacing:.08em;font-size:clamp(.78rem,1vw,1rem);margin:0;text-transform:none}
+    h1{font-size:clamp(2.5rem,4.5vw,4.8rem);letter-spacing:-.035em}
+    h2{font-size:clamp(2rem,3.15vw,3.25rem);letter-spacing:-.03em;color:#193f63;margin-bottom:.65rem}
+    h3{color:#193f63}
+    .cover{padding-top:10%}
+    .cover::before{height:9%}
+    .cover-content{position:static;max-width:88%}
+    .cover h1{max-width:17ch;color:#193f63}
+    .cover-meta{color:#4d6070}
+    .rule{background:#9db2c4;height:1px}
+    .highlight,.context-copy strong,.distinction strong,.prior-art .who{color:#245b89}
+    .gold,.kicker,.method-step .num,.objective-list .num{color:#9b571f}
+    .source,.slide-label,.scheme-note{color:#5c6b79}
+    .source a,a{color:#245b89}
+    a:hover,.source a:hover{color:#123d63}
+    .cover .rule{display:none}
+    .news{border:0;padding:0;margin-top:1.35rem;font-size:clamp(.95rem,1.32vw,1.29rem);line-height:1.4}
+    .news strong{color:#193f63}
+    .gap{background:none;border:0;padding:0;margin-top:1.3rem}
+    .gap h3,.impact h3{font-size:clamp(1.08rem,1.4vw,1.4rem);font-weight:700;margin:0 0 .35rem;color:#193f63}
+    .gap p{font-size:clamp(1.08rem,1.55vw,1.52rem);line-height:1.32}
+    .distinction div,.prior-art article,.objective-list li,.method-step{border:0}
+    .prior-art article{padding-top:0}
+    .prior-art .who{letter-spacing:0}
+    .objective-list{grid-template-columns:1fr;gap:.62rem}
+    .objective-list li{display:grid;grid-template-columns:2.4rem 1fr;gap:.45rem;padding:0;font-size:clamp(.98rem,1.2vw,1.2rem);line-height:1.3}
+    .objective-list .num{margin:0;color:#245b89}
+    .kicker,.method-step .num{color:#245b89}
+    .method-grid{grid-template-columns:1fr;gap:.55rem;margin:1.2rem 0 1.2rem}
+    .method-step{display:grid;grid-template-columns:2.4rem 1fr;gap:.45rem;min-height:0;padding:0}
+    .method-step p{font-size:clamp(1.04rem,1.3vw,1.28rem);line-height:1.3;margin:0}
+    .impact{border:0;padding:0;margin-top:.45rem}
+    .impact p{font-size:clamp(1.08rem,1.45vw,1.45rem)}
+    .toolbar{color:#33495d}
+    .control{background:#fff;border:1px solid #aabccc;color:#1d4263}
+    .control:hover:not(:disabled){background:#e9f1f7;border-color:#245b89}
+    .active .reveal{animation:none}
+    [data-fragment]{visibility:hidden;opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease,visibility .35s}
+    [data-fragment].shown{visibility:visible;opacity:1;transform:none}
+    .fragment-hint{font-size:.84rem;color:#5c6b79;margin-left:.5rem}
+    .context-copy{color:#1d2d3d}
+    .context-slide .two-col{flex:1 1 0;grid-template-rows:minmax(0,1fr);align-items:stretch;min-height:0;overflow:hidden}
+    .context-slide .two-col > div:first-child{min-height:0;display:flex;flex-direction:column;justify-content:center}
+    .context-slide .visual-wrap{height:auto;min-height:0;display:flex;align-items:center;justify-content:center}
+    .context-slide .visual{display:block;width:100%;height:100%;max-height:100%}
+    .context-slide .news{flex:none;margin:.45rem 0 .3rem;max-width:none}
+    .context-slide .source{flex:none;margin-top:.5rem;padding-top:.2rem}
+    .problem-question{color:#1d2d3d;margin:.3rem 0 .55rem}
+    .method-grid{gap:1.3rem}
+    .method-step{position:relative}
+    .method-step:not(:last-child)::after{content:none}
+    .cluster-diagram{margin:.2rem 0 .45rem;display:flex;flex-direction:column;gap:.6rem}
+    .cluster-group{display:grid;grid-template-columns:7.2rem 1fr;align-items:center;gap:1rem;border:0;padding-left:0}
+    .cluster-group strong{font-size:clamp(1rem,1.3vw,1.3rem);color:#193f63}
+    .cluster-group:nth-child(2) strong{color:#193f63}
+    .trains{display:flex;flex-direction:column;gap:.15rem}
+    .trains svg{width:100%;height:2.15rem}
+    .time-axis{text-align:right;color:#5c6b79;font-size:clamp(.8rem,.95vw,.95rem);padding-right:.25rem}
+    .slide-count{min-width:6.5rem}
+    @media(max-width:760px){
+      .context-slide .two-col{flex:1 1 auto;overflow:visible}
+      .context-slide .two-col > div:first-child{display:block}
+      .context-slide .visual-wrap{height:auto}
+      .context-slide .visual{height:auto}
+      .context-slide .news{margin:.85rem 0 .3rem}
+      body{background:#fff}
+      .deck{border:0;box-shadow:none}
+      .slide{padding:4.4rem 1.35rem 2.8rem}
+      .slide::before{height:2.75rem}
+      .eyebrow{top:.72rem;left:1.35rem;font-size:.84rem}
+      .cover{padding-top:4.6rem}
+      .cover::before{height:2.75rem}
+      .toolbar{background:#e8edf2}
+      .method-step:not(:last-child)::after{display:none}
+      .cluster-group{grid-template-columns:5.3rem 1fr;gap:.35rem;padding-left:0}
+      .trains svg{height:1.8rem}
+    }
+    @media(max-width:520px){
+      .slide{padding:4rem 1rem 2.4rem}
+      .eyebrow{left:1rem}
+      h2{font-size:1.9rem}
+      .cover h1{font-size:2.55rem}
+    }
+    @media(max-width:760px){
+      .objective-list,.method-grid{gap:.55rem}
+      .objective-list li,.method-step{grid-template-columns:2rem 1fr;gap:.35rem}
+      .method-grid{margin:.75rem 0}
+      .gap{margin-top:.8rem}
+      .news{margin-top:.85rem}
+    }
+    @media(prefers-reduced-motion:reduce){[data-fragment]{transition:none;transform:none}}
+    @media print{.slide{background:#fff!important;color:#1d2d3d}.slide::before,.slide::after{display:none}.eyebrow{position:static;color:#245b89}[data-fragment]{visibility:visible!important;opacity:1!important;transform:none!important}}
+    .inline-cite{font-size:clamp(.76rem,.9vw,.95rem);line-height:1.28;color:#536575;margin:.35rem 0 0}
+    .inline-cite a{color:#245b89}
+    .context-second{margin:.75rem 0 0;font-size:clamp(.98rem,1.35vw,1.32rem);line-height:1.38}
+    .news{font-size:clamp(.91rem,1.12vw,1.13rem);margin-top:1rem}
+    .problem-use{font-size:clamp(1.08rem,1.65vw,1.58rem);line-height:1.35;max-width:57ch;margin:1rem 0 0}
+    .cluster-group{grid-template-columns:14rem 1fr}
+    .cluster-group strong small{display:block;font-size:.77em;font-weight:500;color:#536575;margin-top:.12rem}
+    .prior-art{display:block;margin-top:1.15rem}
+    .prior-art article{max-width:76ch;margin-bottom:1.05rem}
+    .prior-art .who{margin-bottom:.22rem}
+    .prior-art p{max-width:none;margin:0;font-size:clamp(1.08rem,1.5vw,1.45rem)}
+    .gap{margin-top:.35rem}
+    .gap p{max-width:62ch}
+    .objective-general{font-size:clamp(1.17rem,1.75vw,1.67rem);max-width:64ch}
+    .objective-list li{font-size:clamp(.98rem,1.18vw,1.18rem)}
+    .method-flow{width:100%;max-height:17rem;display:block;margin:1rem 0 .55rem}
+    .method-mobile{display:none}
+    .method-copy{font-size:clamp(.93rem,1.15vw,1.14rem);line-height:1.36;margin:.25rem 0 .45rem}
+    .impact{margin-top:.55rem}
+    .impact p{font-size:clamp(1.06rem,1.35vw,1.35rem)}
+    @media(max-width:760px){
+      .cluster-group{grid-template-columns:10rem 1fr}
+      .method-flow{max-height:13rem}
+      .prior-art article{margin-bottom:.7rem}
+      .prior-art p{font-size:1rem}
+    }
+    @media(max-width:520px){
+      .context-copy{font-size:1.04rem}
+      .context-second,.news{font-size:.94rem}
+      .two-col .visual-wrap{min-height:0;max-height:23vh}
+      .two-col .visual{max-height:23vh}
+      .cluster-group{grid-template-columns:7.2rem 1fr;gap:.45rem}
+      .cluster-group strong{font-size:.9rem}
+      .cluster-diagram{gap:.38rem}
+      .trains svg{height:1.38rem}
+      .problem-use{font-size:1.03rem;margin:.6rem 0 0}
+      .prior-art{margin-top:.5rem}
+      .prior-art article{margin-bottom:.55rem}
+      .prior-art .who{font-size:.85rem}
+      .prior-art p{font-size:.94rem;line-height:1.25}
+      .inline-cite{font-size:.72rem}
+      .gap p{font-size:1.02rem}
+      .objective-general{font-size:1.05rem}
+      .objective-list li{font-size:.94rem}
+      .method-flow{display:none}
+      .method-mobile{display:block;list-style:none;padding:0;margin:.35rem 0 .6rem;font-size:.92rem;line-height:1.28}
+      .method-mobile li{display:grid;grid-template-columns:1.35rem 1fr;gap:.3rem;margin:.3rem 0}
+      .method-mobile span{color:#245b89;font-weight:700}
+      .method-copy{font-size:.9rem}
+      .impact p{font-size:1rem}
+    }
+  </style>
+</head>
+<body>
+  <main class="shell" aria-label="Presentación del proyecto">
+    <div class="deck" id="deck">
+      <section class="slide cover active" id="slide-0" aria-label="Portada" aria-hidden="false">
+        <div class="cover-content">
+          <p class="eyebrow reveal">Propuesta de investigación</p>
+          <h1 class="reveal">[Título definitivo del proyecto]</h1>
+          <div class="rule reveal"></div>
+          <p class="cover-meta" data-fragment="1">[Tu nombre]<br>Profesor/a guía: [Nombre]<br>[Institución o curso] · [Fecha]</p>
+        </div>
+        <span class="slide-label">00 / 05</span>
+      </section>
+
+      <section class="slide context-slide" id="slide-1" aria-label="Contexto" aria-hidden="true" inert>
+        <p class="eyebrow reveal">01 · Contexto</p>
+        <h2 class="reveal">¿Qué distingue las respuestas de la retina?</h2>
+        <div class="two-col">
+          <div data-fragment="1">
+            <p class="context-copy">Un mismo estímulo puede producir <strong>trenes de spikes con dinámicas distintas</strong> entre células ganglionares.</p>
+            <p class="inline-cite"><a href="https://doi.org/10.3389/fncel.2018.00481" target="_blank" rel="noopener">Jouty et al. (2018)</a></p>
+            <p class="context-second">¿Qué parte de esa dinámica distingue sus grupos funcionales?</p>
+          </div>
+          <div class="visual-wrap" data-fragment="1">
+            <svg class="visual" viewBox="0 0 640 400" role="img" aria-label="El estímulo visual se procesa en la retina y las células ganglionares emiten un tren de spikes" xmlns="http://www.w3.org/2000/svg">
+              <defs><marker id="arrow1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9" fill="none" stroke="#245b89" stroke-width="1.5"/></marker></defs>
+              <rect x="48" y="12" width="544" height="84" rx="3" fill="#f4f7fa" stroke="#9cb4c7" stroke-width="2"/>
+              <text x="70" y="45" fill="#193f63" font-size="24" font-weight="700">1  Estímulo visual</text>
+              <text x="70" y="75" fill="#485c6d" font-size="20">La luz llega a la retina</text>
+              <path d="M320 99V125" stroke="#245b89" stroke-width="3" marker-end="url(#arrow1)"/>
+              <rect x="48" y="136" width="544" height="84" rx="3" fill="#f4f7fa" stroke="#9cb4c7" stroke-width="2"/>
+              <text x="70" y="169" fill="#193f63" font-size="24" font-weight="700">2  Células ganglionares</text>
+              <text x="70" y="199" fill="#485c6d" font-size="20">Generan señales eléctricas breves</text>
+              <path d="M320 223V249" stroke="#245b89" stroke-width="3" marker-end="url(#arrow1)"/>
+              <rect x="48" y="260" width="544" height="115" rx="3" fill="#f4f7fa" stroke="#9cb4c7" stroke-width="2"/>
+              <text x="70" y="292" fill="#193f63" font-size="24" font-weight="700">3  Tren de spikes</text>
+              <path d="M75 340H560" stroke="#738da0" stroke-width="2"/>
+              <path d="M100 340V312M146 340V315M230 340V305M249 340V313M337 340V310M401 340V315M423 340V307M519 340V313" stroke="#245b89" stroke-width="4"/>
+              <text x="515" y="370" fill="#485c6d" font-size="18">tiempo →</text>
+            </svg>
+          </div>
+        </div>
+        <p class="news" data-fragment="2"><strong>Contexto: PRIMA.</strong> Un ensayo clínico informó mejoras de visión central con un implante retiniano. <a href="https://doi.org/10.1056/NEJMoa2501396" target="_blank" rel="noopener">Holz et al. (2025)</a>. Este proyecto no forma parte de ese ensayo.</p>
+        <p class="source">Esquema conceptual de la respuesta retinal. La noticia clínica aporta contexto general.</p>
+        <span class="slide-label">01 / 05</span>
+      </section>
+
+      <section class="slide" id="slide-2" aria-label="Problema" aria-hidden="true" inert>
+        <p class="eyebrow reveal">02 · Problema</p>
+        <h2 class="reveal">Agrupar no basta para explicar</h2>
+        <div data-fragment="1"><p class="problem-question">¿Qué diferencias temporales sostienen estos grupos?</p><p class="inline-cite">Las respuestas temporales pueden distinguir tipos funcionales: <a href="https://doi.org/10.1152/jn.00243.2022" target="_blank" rel="noopener">Trapani et al. (2023)</a>.</p></div>
+        <div class="cluster-diagram" data-fragment="2" role="img" aria-label="Esquema hipotético, no son datos: dos trenes por grupo. Grupo A tiene eventos agrupados y grupo B eventos espaciados.">
+          <div class="cluster-group"><strong>Grupo A <small>eventos agrupados</small></strong><div class="trains">
+            <svg viewBox="0 0 760 46" aria-hidden="true"><path d="M5 39H755" stroke="#8aa0b1" stroke-width="2"/><path d="M60 39V8M83 39V15M110 39V6M310 39V13M338 39V8M570 39V10M597 39V15" stroke="#245b89" stroke-width="5"/></svg>
+            <svg viewBox="0 0 760 46" aria-hidden="true"><path d="M5 39H755" stroke="#8aa0b1" stroke-width="2"/><path d="M65 39V12M89 39V7M116 39V16M305 39V8M345 39V15M565 39V14M604 39V7" stroke="#245b89" stroke-width="5"/></svg>
+          </div></div>
+          <div class="cluster-group"><strong>Grupo B <small>eventos espaciados</small></strong><div class="trains">
+            <svg viewBox="0 0 760 46" aria-hidden="true"><path d="M5 39H755" stroke="#8aa0b1" stroke-width="2"/><path d="M60 39V10M180 39V14M300 39V8M420 39V12M540 39V7M660 39V15" stroke="#9b571f" stroke-width="5"/></svg>
+            <svg viewBox="0 0 760 46" aria-hidden="true"><path d="M5 39H755" stroke="#8aa0b1" stroke-width="2"/><path d="M65 39V14M185 39V8M305 39V15M425 39V7M545 39V13M665 39V9" stroke="#9b571f" stroke-width="5"/></svg>
+          </div></div>
+          <div class="time-axis">tiempo <span aria-hidden="true">→</span> · Esquema hipotético; no son datos</div>
+        </div>
+        <div data-fragment="3"><p class="problem-use">Si identificamos el rasgo discriminante, podremos contrastar la etiqueta del grupo con una respuesta observable.</p><p class="inline-cite">Utilidad de contrastar una clasificación funcional: <a href="https://doi.org/10.1016/j.celrep.2022.111040" target="_blank" rel="noopener">Goetz et al. (2022)</a>.</p></div>
+        <p class="source">Los patrones del dibujo ilustran posibilidades, sin atribuirlas a grupos reales.</p>
+        <span class="slide-label">02 / 05</span>
+      </section>
+
+      <section class="slide" id="slide-3" aria-label="Estado del arte y novedad" aria-hidden="true" inert>
+        <p class="eyebrow reveal">03 · Estado del arte</p>
+        <h2 class="reveal">La pregunta pendiente en esta distancia</h2>
+        <div class="prior-art">
+          <article data-fragment="1"><div class="who">Sanhueza · 2026</div><p>Distancia Fourier y función testigo para comparar <strong>pares</strong> de trenes.</p><p class="inline-cite">Sanhueza, tesis UAI, §4.1.1; copia local disponible.</p></article>
+          <article data-fragment="2"><div class="who">Burg et al. · 2024</div><p>Estímulos discriminativos revelan rasgos de grupos retinales mediante <strong>otro enfoque</strong>.</p><p class="inline-cite"><a href="https://proceedings.iclr.cc/paper_files/paper/2024/file/61370b118cd3dcf949f0803ae2d649e0-Paper-Conference.pdf" target="_blank" rel="noopener">Burg et al., ICLR 2024</a>.</p></article>
+        </div>
+        <div class="gap" data-fragment="3"><h3>Pregunta del proyecto</h3><p>¿Qué componentes de la distancia de Sanhueza separan de forma estable los clusters completos?</p></div>
+        <p class="source">Esta pregunta delimita el aporte propuesto a la distancia de Sanhueza; no afirma prioridad general.</p>
+        <span class="slide-label">03 / 05</span>
+      </section>
+
+      <section class="slide" id="slide-4" aria-label="Objetivos" aria-hidden="true" inert>
+        <p class="eyebrow reveal">04 · Objetivos</p>
+        <h2 class="reveal">Objetivos de la investigación</h2>
+        <div class="slide-main">
+          <div data-fragment="1"><p class="kicker">Objetivo general</p><p class="objective-general">Evaluar qué componentes de la distancia Fourier de Sanhueza contribuyen de forma estable a separar clusters de trenes de spikes y qué diferencias temporales representan.</p></div>
+          <div class="rule reveal"></div>
+          <div data-fragment="2"><p class="kicker">Objetivos específicos propuestos</p><ol class="objective-list">
+            <li><span class="num">01</span>Cuantificar la contribución a la separación entre clusters.</li>
+            <li><span class="num">02</span>Comprobar su estabilidad en comparaciones y condiciones por definir.</li>
+            <li><span class="num">03</span>Relacionar componentes relevantes con diferencias temporales observables.</li>
+          </ol></div>
+        </div>
+        <p class="source">Datos, normalización y criterio de estabilidad por definir.</p>
+        <span class="slide-label">04 / 05</span>
+      </section>
+
+      <section class="slide" id="slide-5" aria-label="Método e impacto esperados" aria-hidden="true" inert>
+        <p class="eyebrow reveal">05 · Método e impacto</p>
+        <h2 class="reveal">Método propuesto e impacto esperado</h2>
+        <div class="slide-main">
+          <svg class="method-flow" viewBox="0 0 1120 238" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Método propuesto: distancia Fourier, aporte de componentes entre grupos, reconstrucción temporal y contraste con respuestas">
+            <defs><marker id="flow-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#245b89" stroke-width="1.7"/></marker></defs>
+            <g data-fragment="1">
+              <text x="20" y="40" fill="#193f63" font-size="23" font-weight="700">Distancia Fourier</text>
+              <path d="M21 113H205" stroke="#718a9f" stroke-width="2"/><path d="M42 113V85M78 113V72M110 113V97M153 113V78M180 113V91" stroke="#245b89" stroke-width="4"/>
+              <path d="M230 111H282" stroke="#245b89" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+              <text x="300" y="40" fill="#193f63" font-size="23" font-weight="700">Aporte entre grupos</text>
+              <path d="M316 109H491" stroke="#718a9f" stroke-width="2"/><path d="M342 109V70M380 109V93M420 109V80M462 109V100" stroke="#245b89" stroke-width="14" opacity=".75"/>
+              <text x="20" y="190" fill="#536575" font-size="20">componentes de la métrica</text>
+              <text x="300" y="190" fill="#536575" font-size="20">contribución y estabilidad</text>
+            </g>
+            <g data-fragment="2">
+              <path d="M510 111H564" stroke="#245b89" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+              <text x="580" y="40" fill="#193f63" font-size="23" font-weight="700">Reconstrucción temporal</text>
+              <path d="M596 110 C620 110 620 73 646 73 C672 73 672 110 698 110 C724 110 724 75 750 75 C776 75 776 110 802 110" fill="none" stroke="#245b89" stroke-width="3"/>
+              <path d="M813 111H866" stroke="#245b89" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+              <text x="880" y="40" fill="#193f63" font-size="23" font-weight="700">Contraste</text>
+              <path d="M888 110H1095" stroke="#718a9f" stroke-width="2"/><path d="M908 110V88M950 110V76M1006 110V88M1051 110V76" stroke="#9b571f" stroke-width="4"/>
+              <text x="580" y="190" fill="#536575" font-size="20">patrón a examinar</text>
+              <text x="880" y="190" fill="#536575" font-size="20">respuesta observable</text>
+            </g>
+          </svg>
+          <ol class="method-mobile" aria-label="Secuencia del método">
+            <li data-fragment="1"><span>1.</span>Distancia Fourier de Sanhueza</li>
+            <li data-fragment="1"><span>2.</span>Aporte de componentes entre grupos</li>
+            <li data-fragment="2"><span>3.</span>Reconstrucción temporal</li>
+            <li data-fragment="2"><span>4.</span>Contraste con respuestas observables</li>
+          </ol>
+          <p class="method-copy" data-fragment="2">Partir de grupos obtenidos con la distancia de Sanhueza, estimar contribuciones, comprobar su estabilidad y visualizar el patrón temporal asociado. <span class="inline-cite">Punto de partida: Sanhueza (2026), tesis UAI.</span></p>
+          <div class="impact" data-fragment="3"><h3>Utilidad científica propuesta</h3><p>Criterios interpretables para comprobar si los grupos reflejan dinámicas temporales reproducibles.</p></div>
+        </div>
+        <p class="source">Propuesta metodológica; datos y métricas de estabilidad por definir. El diagrama es conceptual.</p>
+        <span class="slide-label">05 / 05</span>
+      </section>
+    </div>
+
+    <nav class="toolbar" aria-label="Controles de la presentación">
+      <div class="toolbar-group">
+        <button class="control" id="previous" type="button" aria-label="Retroceder un paso" title="Retroceder (flecha izquierda)">←</button>
+        <span class="slide-count" id="count" aria-live="polite">0/5 · 0/1</span>
+        <button class="control" id="next" type="button" aria-label="Revelar texto o avanzar" title="Revelar o avanzar (flecha derecha)">→</button>
+      </div>
+      <div class="toolbar-group">
+        <span class="keyboard-hint">← → revelan cada idea</span>
+        <button class="control" id="fullscreen" type="button" aria-label="Alternar pantalla completa" title="Pantalla completa (F)">⛶</button>
+      </div>
+    </nav>
+  </main>
+  <script>
+    (() => {
+      const slides = [...document.querySelectorAll('.slide')];
+      const previous = document.getElementById('previous');
+      const next = document.getElementById('next');
+      const count = document.getElementById('count');
+      const deck = document.getElementById('deck');
+      const maxSteps = slides.map(slide => Math.max(0, ...[...slide.querySelectorAll('[data-fragment]')].map(item => Number(item.dataset.fragment))));
+      let current = 0;
+      let step = 0;
+
+      function setStep(requestedStep) {
+        step = Math.max(0, Math.min(maxSteps[current], requestedStep));
+        slides[current].querySelectorAll('[data-fragment]').forEach(item => {
+          const visible = Number(item.dataset.fragment) <= step;
+          item.classList.toggle('shown', visible);
+          item.setAttribute('aria-hidden', String(!visible));
+        });
+        previous.disabled = current === 0 && step === 0;
+        next.disabled = current === slides.length - 1 && step === maxSteps[current];
+        count.textContent = `${current}/${slides.length - 1} · ${step}/${maxSteps[current]}`;
+      }
+
+      function show(index, requestedStep = 0, updateHash = true) {
+        const target = Math.max(0, Math.min(slides.length - 1, index));
+        slides.forEach((slide, i) => {
+          const active = i === target;
+          slide.classList.toggle('active', active);
+          slide.setAttribute('aria-hidden', String(!active));
+          slide.inert = !active;
+          if (active) slide.scrollTop = 0;
+        });
+        current = target;
+        setStep(requestedStep);
+        if (updateHash && location.hash !== `#slide-${target}`) history.replaceState(null, '', `#slide-${target}`);
+      }
+
+      function advance() {
+        if (step < maxSteps[current]) setStep(step + 1);
+        else if (current < slides.length - 1) show(current + 1);
+      }
+
+      function retreat() {
+        if (step > 0) setStep(step - 1);
+        else if (current > 0) show(current - 1, maxSteps[current - 1]);
+      }
+
+      function fromHash() {
+        const match = /^#slide-(\d+)$/.exec(location.hash);
+        if (match) show(Number(match[1]), 0, false);
+      }
+
+      previous.addEventListener('click', retreat);
+      next.addEventListener('click', advance);
+      window.addEventListener('hashchange', fromHash);
+      window.addEventListener('keydown', event => {
+        if (event.altKey || event.ctrlKey || event.metaKey) return;
+        if (event.key === ' ' && ['BUTTON', 'A'].includes(document.activeElement.tagName)) return;
+        if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); advance(); }
+        if (['ArrowLeft', 'PageUp', 'Backspace'].includes(event.key)) { event.preventDefault(); retreat(); }
+        if (event.key === 'Home') { event.preventDefault(); show(0); }
+        if (event.key === 'End') { event.preventDefault(); show(slides.length - 1, maxSteps[slides.length - 1]); }
+        if (event.key.toLowerCase() === 'f' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) toggleFullscreen();
+      });
+
+      let touchX = null;
+      deck.addEventListener('touchstart', event => { touchX = event.changedTouches[0].screenX; }, {passive:true});
+      deck.addEventListener('touchend', event => {
+        if (touchX === null) return;
+        const distance = event.changedTouches[0].screenX - touchX;
+        if (Math.abs(distance) > 65) (distance < 0 ? advance : retreat)();
+        touchX = null;
+      }, {passive:true});
+
+      async function toggleFullscreen() {
+        try {
+          if (document.fullscreenElement) await document.exitFullscreen();
+          else if (deck.requestFullscreen) await deck.requestFullscreen();
+        } catch (_) { /* Some browsers do not permit fullscreen. */ }
+      }
+      document.getElementById('fullscreen').addEventListener('click', toggleFullscreen);
+      fromHash();
+      show(current, 0, false);
+    })();
+  </script>
+</body>
+</html>
